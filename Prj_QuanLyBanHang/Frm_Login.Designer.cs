@@ -69,6 +69,7 @@
             this.btn_dong.TabIndex = 7;
             this.btn_dong.Text = "Đóng";
             this.btn_dong.UseVisualStyleBackColor = true;
+            this.btn_dong.Click += new System.EventHandler(this.btn_dong_Click);
             // 
             // btn_login
             // 
@@ -132,6 +133,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "Frm_Login";
             this.Text = "Form Đăng Nhập";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

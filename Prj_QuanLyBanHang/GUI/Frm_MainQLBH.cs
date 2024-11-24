@@ -16,5 +16,63 @@ namespace Prj_QuanLyBanHang.GUI
         {
             InitializeComponent();
         }
+
+        private void product_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Frm_Products form = new Frm_Products();
+
+            form.FormClosed += (s, args) =>
+            {
+                this.Show();
+            };
+            form.ShowDialog();
+        }
+
+        private void exit_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Bạn có chắc muốn đóng chương trình không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                this.Close();
+            }
+        }
+
+        private void receipt_ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Frm_Receipts form = new Frm_Receipts();
+
+            form.FormClosed += (s, args) =>
+            {
+                this.Show();
+            };
+            form.ShowDialog();
+        }
+
+        private void revenue_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Frm_Sales form = new Frm_Sales();
+
+            form.FormClosed += (s, args) =>
+            {
+                this.Show();
+            };
+            form.ShowDialog();
+        }
+
+        private void user_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Frm_Staff form = new Frm_Staff();
+
+            form.FormClosed += (s, args) =>
+            {
+                this.Show();
+            };
+            form.ShowDialog();
+        }
     }
 }

@@ -10,23 +10,11 @@ using System.Windows.Forms;
 
 namespace Prj_QuanLyBanHang.GUI
 {
-    public partial class Frm_Products : Form
+    public partial class Frm_StaffDetailscs : Form
     {
-        public Frm_Products()
+        public Frm_StaffDetailscs()
         {
             InitializeComponent();
-        }
-
-        private void btn_fix_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            Frm_ProductDetails form = new Frm_ProductDetails();
-
-            form.FormClosed += (s, args) =>
-            {
-                this.Show();
-            };
-            form.ShowDialog();
         }
 
         private void btn_exit_Click(object sender, EventArgs e)

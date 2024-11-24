@@ -103,17 +103,17 @@
     <Compile Include="GUI\Frm_SalesDetails.Designer.cs">
       <DependentUpon>Frm_SalesDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Frm_UserDetails.cs">
+    <Compile Include="GUI\Frm_Staff.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Frm_UserDetails.Designer.cs">
-      <DependentUpon>Frm_UserDetails.cs</DependentUpon>
+    <Compile Include="GUI\Frm_Staff.Designer.cs">
+      <DependentUpon>Frm_Staff.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Frm_Users.cs">
+    <Compile Include="GUI\Frm_StaffDetailscs.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Frm_Users.Designer.cs">
-      <DependentUpon>Frm_Users.cs</DependentUpon>
+    <Compile Include="GUI\Frm_StaffDetailscs.Designer.cs">
+      <DependentUpon>Frm_StaffDetailscs.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -124,8 +124,29 @@
     <EmbeddedResource Include="GUI\Frm_MainQLBH.resx">
       <DependentUpon>Frm_MainQLBH.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Frm_ProductDetails.resx">
+      <DependentUpon>Frm_ProductDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Frm_Products.resx">
+      <DependentUpon>Frm_Products.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Frm_ReceiptDetails.resx">
       <DependentUpon>Frm_ReceiptDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Frm_Receipts.resx">
+      <DependentUpon>Frm_Receipts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Frm_Sales.resx">
+      <DependentUpon>Frm_Sales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Frm_SalesDetails.resx">
+      <DependentUpon>Frm_SalesDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Frm_Staff.resx">
+      <DependentUpon>Frm_Staff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Frm_StaffDetailscs.resx">
+      <DependentUpon>Frm_StaffDetailscs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

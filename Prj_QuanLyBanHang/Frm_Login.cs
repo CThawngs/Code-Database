@@ -16,5 +16,10 @@ namespace Prj_QuanLyBanHang
         {
             InitializeComponent();
         }
+
+        private void btn_dong_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

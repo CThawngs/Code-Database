@@ -40,7 +40,7 @@ namespace Prj_QuanLyBanHang.GUI
 
             if (result == DialogResult.Yes)
             {
-                this.Close();
+                Application.Exit();
             }
         }
 
@@ -68,10 +68,32 @@ namespace Prj_QuanLyBanHang.GUI
             form.ShowDialog();
         }
 
-        private void user_ToolStripMenuItem_Click(object sender, EventArgs e)
+         
+
+        private void quảnLýNhânViênToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
             Frm_Staff form = new Frm_Staff();
+
+            form.FormClosed += (s, args) =>
+            {
+                this.Show();
+            };
+            form.ShowDialog();
+        }
+
+        private void Frm_MainQLBH_Load(object sender, EventArgs e)
+        {
+            if( userRole.ToLower() == "admin")
+            {
+                quảnLýNhânViênToolStripMenuItem.Visible = true;
+            }
+        }
+
+        private void profileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Frm_StaffDetailscs form = new Frm_StaffDetailscs(userId);
 
             form.FormClosed += (s, args) =>
             {

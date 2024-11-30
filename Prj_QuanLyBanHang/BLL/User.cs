@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,15 @@ namespace Prj_QuanLyBanHang.BLL
         public void Disconnect()
         {
            providers.DisConnect();
+        }
+
+        public DataTable GetDataUser(int id)
+        {
+            string sqlName = "select * from Employees where EmployeeId = @EmployeeId ";
+            string[] parameters = { "@EmployeeId" };
+            object[] values = { id };
+            return providers.GetData(sqlName, parameters, values, false);
+
         }
 
         public Dictionary<string, object> CheckUser(string User, string Pass)
@@ -58,7 +68,10 @@ namespace Prj_QuanLyBanHang.BLL
 
             return userInfo;
         }
-
+        public int UserExecuteNonQuery(string queryOrSpName, string[] Parameters, object[] Values, bool isStored)
+        {
+            return providers.ExecuteNonQuery(queryOrSpName, Parameters, Values, isStored);
+        }
 
 
     }

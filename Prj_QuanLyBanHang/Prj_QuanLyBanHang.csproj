@@ -68,6 +68,12 @@
     <Compile Include="GUI\Frm_AddAdmin.Designer.cs">
       <DependentUpon>Frm_AddAdmin.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Frm_AddEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Frm_AddEmployee.Designer.cs">
+      <DependentUpon>Frm_AddEmployee.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Frm_MainQLBH.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Frm_AddAdmin.resx">
       <DependentUpon>Frm_AddAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Frm_AddEmployee.resx">
+      <DependentUpon>Frm_AddEmployee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Frm_MainQLBH.resx">
       <DependentUpon>Frm_MainQLBH.cs</DependentUpon>

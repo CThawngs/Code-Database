@@ -38,7 +38,6 @@
             this.txt_price = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.txt_category = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.txt_manufacturingdate = new System.Windows.Forms.TextBox();
@@ -59,6 +58,7 @@
             this.txt_stockQuantity = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
+            this.cmb_category = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -160,21 +160,13 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.cmb_category);
             this.panel5.Controls.Add(this.label5);
             this.panel5.Location = new System.Drawing.Point(33, 340);
             this.panel5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(463, 80);
             this.panel5.TabIndex = 0;
-            // 
-            // txt_category
-            // 
-            this.txt_category.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_category.Location = new System.Drawing.Point(61, 375);
-            this.txt_category.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txt_category.Name = "txt_category";
-            this.txt_category.Size = new System.Drawing.Size(406, 38);
-            this.txt_category.TabIndex = 1;
             // 
             // label5
             // 
@@ -379,13 +371,36 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Số hàng tồn:";
             // 
+            // cmb_category
+            // 
+            this.cmb_category.FormattingEnabled = true;
+            this.cmb_category.Items.AddRange(new object[] {
+            "Food",
+            "Electronics",
+            "Clothing",
+            "Furniture",
+            "Beauty",
+            "Toys",
+            "Books",
+            "Home Appliances",
+            "Sports",
+            "Automotive",
+            "Health",
+            "Stationery",
+            "Garden",
+            "Pets",
+            "Music Instruments"});
+            this.cmb_category.Location = new System.Drawing.Point(28, 34);
+            this.cmb_category.Name = "cmb_category";
+            this.cmb_category.Size = new System.Drawing.Size(406, 24);
+            this.cmb_category.TabIndex = 4;
+            // 
             // Frm_ProductDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1087, 596);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.txt_category);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.btn_exit);
             this.Controls.Add(this.btn_save);
@@ -438,7 +453,6 @@
         private System.Windows.Forms.TextBox txt_price;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.TextBox txt_category;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.TextBox txt_manufacturingdate;
@@ -459,5 +473,6 @@
         private System.Windows.Forms.TextBox txt_stockQuantity;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cmb_category;
     }
 }

@@ -42,6 +42,7 @@ namespace Prj_QuanLyBanHang
                     Frm_AddAdmin form = new Frm_AddAdmin();
                     form.ShowDialog();
                 }
+                users.Disconnect();
 
             }
             else
@@ -66,8 +67,8 @@ namespace Prj_QuanLyBanHang
                     MessageBox.Show("Success", "Notice", MessageBoxButtons.OK);
 
                     Frm_MainQLBH form = new Frm_MainQLBH(userRole, userId);
-                    form.Show();
-                    this.Hide();
+                    form.ShowDialog();
+                    this.Close();
                 }
 
                 else

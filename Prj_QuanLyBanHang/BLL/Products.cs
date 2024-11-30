@@ -35,6 +35,28 @@ namespace Prj_QuanLyBanHang.BLL
             return providers.GetData(sqlStr,null,null,false);
 
         }
+       
+        public DataTable SearchProduct(string input)
+        {
+            string sqlStr = "SELECT * FROM Products WHERE ProductName LIKE @input";
+
+            string[] parameters = { "@input" };
+            object[] values = { $"%{input}%" };
+
+            // Execute the query using the data provider
+            return providers.GetData(sqlStr, parameters, values, false);
+        }
+        
+            public DataTable SearchProductWithFilter(string input, string filter)
+        {
+            string sqlStr = "SELECT * FROM Products WHERE ProductName LIKE @input and CategoryName = @filter";
+
+            string[] parameters = { "@input", "@filter" };
+            object[] values = { $"%{input}%" ,filter};
+
+            // Execute the query using the data provider
+            return providers.GetData(sqlStr, parameters, values, false);
+        }
         public int ProductsExecuteNonQuery(string queryOrSpName, string[] Parameters, object[] Values, bool isStored)
         {
             return providers.ExecuteNonQuery(queryOrSpName, Parameters, Values, isStored);

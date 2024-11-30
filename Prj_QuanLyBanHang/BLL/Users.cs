@@ -31,6 +31,24 @@ namespace Prj_QuanLyBanHang.BLL
         {
             return providers.GetData("SELECT * FROM Employees WHERE UserRole = 'Admin'", null, null, false);
         }
+        public DataTable GetDataUsers()
+        {
+            string sqlStr = "Select * from Employees";
+
+            return providers.GetData(sqlStr, null, null, false);
+
+        }
+
+        public DataTable SearchUser(string input)
+        {
+            string sqlStr = "SELECT * FROM Employees WHERE Username LIKE @input";
+
+            string[] parameters = { "@input" };
+            object[] values = { $"%{input}%" };
+
+            // Execute the query using the data provider
+            return providers.GetData(sqlStr, parameters, values, false);
+        }
 
         public object UsersExecuteScalar(string query, string[] parameters, object[] values)
         {

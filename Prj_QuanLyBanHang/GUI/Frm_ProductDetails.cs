@@ -22,7 +22,7 @@ namespace Prj_QuanLyBanHang.GUI
             InitializeComponent();
             this.ProductId = ProductId;
             debounceTimer = new Timer();
-            debounceTimer.Interval = 300; // Set debounce delay in milliseconds (e.g., 300ms)
+            debounceTimer.Interval = 300;  
             debounceTimer.Tick += DebounceTimer_Tick;
 
         }
@@ -58,12 +58,12 @@ namespace Prj_QuanLyBanHang.GUI
                     txt_nameofproduct.Text = row["ProductName"].ToString();
                     txt_price.Text = row["Price"].ToString();
                     txt_brand.Text = row["Brand"].ToString();
-                    txt_category.Text = row["CategoryName"].ToString();
                     txt_id.Text = row["ProductID"].ToString();
                     txt_manufacturingdate.Text = Convert.ToDateTime(row["ManufacturingDate"]).ToString("yyyy-MM-dd");
                     txt_expirydate.Text = Convert.ToDateTime(row["ExpiryDate"]).ToString("yyyy-MM-dd");
                     txt_ingredient.Text = row["Ingredients"].ToString();
                     txt_stockQuantity.Text = row["StockQuantity"].ToString();
+                    cmb_category.SelectedItem = row["CategoryName"].ToString();
                 }
                 else
                 {
@@ -142,7 +142,7 @@ namespace Prj_QuanLyBanHang.GUI
                 object[] values = {
     productId,
     txt_nameofproduct.Text,
-    txt_category.Text,
+    cmb_category.Text,
     price,
     txt_brand.Text,
     manufacturingDate,

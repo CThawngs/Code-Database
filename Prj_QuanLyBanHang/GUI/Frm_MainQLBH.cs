@@ -12,9 +12,14 @@ namespace Prj_QuanLyBanHang.GUI
 {
     public partial class Frm_MainQLBH : Form
     {
-        public Frm_MainQLBH()
+        private string userRole;
+        private int userId;
+
+        public Frm_MainQLBH(string role, int id)
         {
             InitializeComponent();
+            this.userRole = role;
+            this.userId = id;
         }
 
         private void product_ToolStripMenuItem_Click(object sender, EventArgs e)

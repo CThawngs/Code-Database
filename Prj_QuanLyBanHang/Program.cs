@@ -17,7 +17,7 @@ namespace Prj_QuanLyBanHang
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Frm_MainQLBH());
+            Application.Run(new Frm_Products());
         }
     }
 }

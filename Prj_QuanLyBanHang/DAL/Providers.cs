@@ -8,7 +8,7 @@ namespace PRJ_PhamThienHung.DAL
 {
     class Providers
     {
-        private SqlConnection connection;
+        public SqlConnection connection;
 
         public bool Connect()
         {

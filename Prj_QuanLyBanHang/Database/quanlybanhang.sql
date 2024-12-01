@@ -34,7 +34,7 @@ CREATE TABLE Products (
     Brand VARCHAR(50),
     ManufacturingDate DATE NOT NULL,
     ExpiryDate DATE NOT NULL,
-    Ingredients VARCHAR(255),
+    Ingredients VARCHAR(MAX),
     StockQuantity INT CHECK (StockQuantity >= 0) NOT NULL,
     UpdatedAt DATETIME DEFAULT GETDATE(),
     CreatedAt DATETIME DEFAULT GETDATE(),
@@ -355,3 +355,61 @@ BEGIN
     -- Optionally, return the newly inserted EmployeeID
     SELECT SCOPE_IDENTITY() AS NewEmployeeID;
 END;
+
+-- Mock datas (BULK INSERT IS NOT WORKING)
+-- Manual Insert
+
+INSERT INTO Products (ProductName, CategoryName, Price, Brand, ManufacturingDate, ExpiryDate, Ingredients, StockQuantity, UpdatedAt, CreatedAt) VALUES
+('Cinnamon Raisin Bread', 'Food', 3.79, 'Microsoft', '2024-11-20', '2025-11-20', 'Cinnamon, Raisins, Wheat flour, Sugar', 50, '2024-10-27', '2024-03-03'),
+('Smartphone', 'Electronics', 699.99, 'Apple', '2024-08-01', '2025-08-01', 'Display, Battery, Processor, Camera', 120, '2024-11-01', '2024-03-01'),
+('Jeans', 'Clothing', 49.99, 'Levis', '2023-05-15', '2024-05-15', 'Cotton, Polyester', 200, '2024-09-05', '2024-03-15'),
+('Office Chair', 'Furniture', 149.99, 'Ikea', '2023-12-01', '2025-12-01', 'Wood, Fabric, Steel', 75, '2024-09-01', '2024-02-15'),
+('Shampoo', 'Beauty', 5.99, 'Pantene', '2024-06-01', '2025-06-01', 'Water, Shampoo, Conditioner', 300, '2024-10-01', '2024-03-05'),
+('Toy Car', 'Toys', 15.99, 'Hot Wheels', '2024-07-01', '2025-07-01', 'Plastic, Rubber', 100, '2024-09-10', '2024-03-10'),
+('Laptop', 'Electronics', 1200.00, 'Dell', '2023-09-01', '2024-09-01', 'Intel i7, 16GB RAM, SSD', 80, '2024-11-02', '2024-02-20'),
+('Table', 'Furniture', 80.00, 'Ikea', '2023-06-15', '2025-06-15', 'Wood, Steel', 150, '2024-11-05', '2024-03-05'),
+('Washing Machine', 'Home Appliances', 499.99, 'Samsung', '2024-05-01', '2025-05-01', 'Plastic, Steel', 60, '2024-11-10', '2024-03-10'),
+('Vitamin C', 'Health', 12.99, 'Nature Made', '2024-07-15', '2025-07-15', 'Vitamin C, Gelatin', 400, '2024-11-12', '2024-03-15'),
+('Treadmill', 'Sports', 799.99, 'NordicTrack', '2024-06-01', '2025-06-01', 'Steel, Rubber, Plastic', 50, '2024-11-20', '2024-03-20');
+
+-- Receipts Table
+INSERT INTO Receipts (TotalPrice, Tax, PaymentMethod, TransactionDate, UpdatedAt, CreatedAt) VALUES
+(200.00, 20.00, 'Card', '2024-11-01', '2024-11-01', '2024-11-01'),
+(1200.50, 120.05, 'Cash', '2024-10-15', '2024-10-15', '2024-10-15'),
+(300.99, 30.10, 'Card', '2024-10-20', '2024-10-20', '2024-10-20'),
+(1500.00, 150.00, 'Card', '2024-11-10', '2024-11-10', '2024-11-10'),
+(650.50, 65.05, 'Cash', '2024-11-05', '2024-11-05', '2024-11-05');
+
+-- Sales Table
+INSERT INTO Sales (TotalIncome, UpdatedAt, CreatedAt) VALUES
+(1500.00, '2024-11-01', '2024-10-01'),
+(2500.00, '2024-10-15', '2024-09-15'),
+(3500.00, '2024-10-20', '2024-09-20'),
+(5000.00, '2024-11-10', '2024-10-05'),
+(2000.00, '2024-11-02', '2024-09-02');
+
+-- Receipts_Products Table
+INSERT INTO Receipts_Products (ReceiptID, ProductID, Price, Quantity, UpdatedAt, CreatedAt) VALUES
+(1, 1, 3.79, 2, '2024-11-01', '2024-11-01'),
+(2, 2, 699.99, 1, '2024-10-15', '2024-10-15'),
+(3, 3, 49.99, 4, '2024-10-20', '2024-10-20'),
+(1, 4, 149.99, 1, '2024-11-01', '2024-11-01'),
+(2, 5, 5.99, 5, '2024-10-15', '2024-10-15'),
+(4, 6, 15.99, 3, '2024-11-10', '2024-11-10'),
+(3, 7, 1200.00, 1, '2024-10-20', '2024-10-20'),
+(5, 8, 80.00, 2, '2024-11-05', '2024-11-05'),
+(4, 9, 499.99, 1, '2024-11-10', '2024-11-10'),
+(5, 10, 12.99, 6, '2024-11-12', '2024-11-12');
+
+-- Sales_Receipts Table
+INSERT INTO Sales_Receipts (SalesID, ReceiptID, Amount, UpdatedAt, CreatedAt) VALUES
+(1, 1, 200.00, '2024-11-01', '2024-11-01'),
+(2, 2, 1200.50, '2024-10-15', '2024-10-15'),
+(3, 3, 300.99, '2024-10-20', '2024-10-20'),
+(4, 4, 1500.00, '2024-11-10', '2024-11-10'),
+(5, 5, 650.50, '2024-11-05', '2024-11-05');
+
+
+
+
+ 

@@ -14,8 +14,8 @@ namespace Prj_QuanLyBanHang.GUI
 {
     public partial class Frm_ProductDetails : Form
     {
-        private Timer debounceTimer;
         private int ProductId;
+        private Timer debounceTimer;
         Product product;
         public Frm_ProductDetails(int ProductId)
         {

@@ -1,7 +1,20 @@
-CREATE DATABASE QuanLyBanHang;
+﻿create DATABASE QuanLyBanHang;
 USE QuanLyBanHang;
 
--- Product Category Table
+
+-- Bảng nhân viên
+CREATE TABLE Employees (
+    EmployeeID INT IDENTITY(1,1) PRIMARY KEY,
+    UserRole NVARCHAR(20) NOT NULL CHECK (UserRole IN ('Admin', 'Employee')),
+    Username NVARCHAR(255) NOT NULL,
+    Password NVARCHAR(255) NOT NULL,
+    UpdatedAt DATETIME DEFAULT GETDATE(),
+    CreatedAt DATETIME DEFAULT GETDATE()
+);
+
+
+
+-- Bảng danh mục sản phẩm
 CREATE TABLE ProductCategories (
     CategoryName VARCHAR(50) PRIMARY KEY
 );
@@ -11,15 +24,8 @@ INSERT INTO ProductCategories (CategoryName) VALUES
 ('Toys'), ('Books'), ('Home Appliances'), ('Sports'), ('Automotive'),
 ('Health'), ('Stationery'), ('Garden'), ('Pets'), ('Music Instruments');
 
--- Payment Method Table
-CREATE TABLE PaymentMethods (
-    MethodName VARCHAR(50) PRIMARY KEY
-);
 
-INSERT INTO PaymentMethods (MethodName) VALUES 
-('Cash'), ('Card'), ('Other');
-
--- Products Table
+-- Bảng sản phẩm
 CREATE TABLE Products (
     ProductID INT IDENTITY(1,1) PRIMARY KEY,
     ProductName VARCHAR(100) NOT NULL,
@@ -35,18 +41,18 @@ CREATE TABLE Products (
 	CONSTRAINT CK_ExpiryDate_Products CHECK (ExpiryDate > ManufacturingDate)
 );
 
--- Receipts Table
+-- Bảng hóa đơn
 CREATE TABLE Receipts (
     ReceiptID INT IDENTITY(1,1) PRIMARY KEY,
     TotalPrice DECIMAL(15, 2) CHECK (TotalPrice >= 0) NOT NULL,
     Tax DECIMAL(5, 2),
-    PaymentMethod VARCHAR(50) REFERENCES PaymentMethods(MethodName) ON UPDATE CASCADE,
+    PaymentMethod NVARCHAR(20) NOT NULL CHECK (PaymentMethod IN ('Cash', 'Card', 'Other')),
     TransactionDate DATE NOT NULL,
     UpdatedAt DATETIME DEFAULT GETDATE(),
     CreatedAt DATETIME DEFAULT GETDATE()
 );
 
--- Sales Table
+-- Bảng doanh thu
 CREATE TABLE Sales (
     SalesID INT IDENTITY(1,1) PRIMARY KEY,
     TotalIncome DECIMAL(15, 2) CHECK (TotalIncome >= 0) NOT NULL,
@@ -54,7 +60,7 @@ CREATE TABLE Sales (
     CreatedAt DATETIME DEFAULT GETDATE()
 );
 
--- Receipts_Products Table
+-- Bảng hóa đơn sản phẩm (liên kết giữa hóa đơn và sản phẩm)
 CREATE TABLE Receipts_Products (
     ReceiptID INT REFERENCES Receipts(ReceiptID) ON DELETE CASCADE,
     ProductID INT REFERENCES Products(ProductID) ON DELETE CASCADE,
@@ -65,7 +71,7 @@ CREATE TABLE Receipts_Products (
     PRIMARY KEY (ReceiptID, ProductID)
 );
 
--- Sales_Receipts Table
+-- Bảng doanh thu hóa đơn (liên kết giữa doanh thu và hóa đơn)
 CREATE TABLE Sales_Receipts (
     SalesID INT REFERENCES Sales(SalesID) ON DELETE CASCADE,
     ReceiptID INT REFERENCES Receipts(ReceiptID) ON DELETE CASCADE,
@@ -75,14 +81,27 @@ CREATE TABLE Sales_Receipts (
     PRIMARY KEY (SalesID, ReceiptID)
 );
 
--- Modification Log Table
+-- Bảng nhật ký thay đổi
 CREATE TABLE ModificationLogs (
     LogID INT IDENTITY(1,1) PRIMARY KEY,   
     TransactionDetails TEXT,       
     CreatedAt DATETIME DEFAULT GETDATE()
 );
 
--- Triggers for Updating Timestamp
+-- Trigger cập nhật thời gian cho bảng Employees khi cập nhật
+go
+CREATE TRIGGER trg_UpdateTimestamp_Employees
+ON Employees
+AFTER UPDATE
+AS
+BEGIN
+    UPDATE Employees
+    SET UpdatedAt = GETDATE()
+    WHERE EmployeeID IN (SELECT EmployeeID FROM inserted);
+END;
+GO
+
+
 GO
 CREATE TRIGGER trg_UpdateTimestamp_Products
 ON Products
@@ -127,48 +146,51 @@ BEGIN
     WHERE SalesID IN (SELECT SalesID FROM inserted) AND ReceiptID IN (SELECT ReceiptID FROM inserted);
 END;
 
--- Stored procedure
+-- Thủ tục tạo sản phẩm
 
--- Create a Product
 GO
+-- Tạo thủ tục lưu trữ để thêm sản phẩm mới vào bảng Products
 CREATE PROCEDURE sp_CreateProduct
-    @ProductName VARCHAR(100),
-    @CategoryName VARCHAR(50),
-    @Price DECIMAL(10, 2),
-    @Brand VARCHAR(50),
-    @ManufacturingDate DATE,
-    @ExpiryDate DATE,
-    @Ingredients VARCHAR(255),
-    @StockQuantity INT
+    @ProductName VARCHAR(100), -- Tên sản phẩm
+    @CategoryName VARCHAR(50), -- Tên danh mục
+    @Price DECIMAL(10, 2), -- Giá sản phẩm
+    @Brand VARCHAR(50), -- Thương hiệu
+    @ManufacturingDate DATE, -- Ngày sản xuất
+    @ExpiryDate DATE, -- Ngày hết hạn
+    @Ingredients VARCHAR(255), -- Thành phần
+    @StockQuantity INT -- Số lượng tồn kho
 AS
 BEGIN
+    -- Thêm thông tin sản phẩm vào bảng Products
     INSERT INTO Products (ProductName, CategoryName, Price, Brand, ManufacturingDate, ExpiryDate, Ingredients, StockQuantity, CreatedAt, UpdatedAt)
     VALUES (@ProductName, @CategoryName, @Price, @Brand, @ManufacturingDate, @ExpiryDate, @Ingredients, @StockQuantity, GETDATE(), GETDATE());
 END;
 
 GO
--- Get Product by ID
+-- Tạo thủ tục lưu trữ để lấy thông tin sản phẩm theo ProductID
 CREATE PROCEDURE sp_GetProductByID
-    @ProductID INT
+    @ProductID INT -- ID sản phẩm
 AS
 BEGIN
+    -- Lấy thông tin sản phẩm từ bảng Products theo ProductID
     SELECT * FROM Products WHERE ProductID = @ProductID;
 END;
 
 GO
--- Update Product
+-- Tạo thủ tục lưu trữ để cập nhật thông tin sản phẩm theo ProductID
 CREATE PROCEDURE sp_UpdateProduct
-    @ProductID INT,
-    @ProductName VARCHAR(100),
-    @CategoryName VARCHAR(50),
-    @Price DECIMAL(10, 2),
-    @Brand VARCHAR(50),
-    @ManufacturingDate DATE,
-    @ExpiryDate DATE,
-    @Ingredients VARCHAR(255),
-    @StockQuantity INT
+    @ProductID INT, -- ID sản phẩm
+    @ProductName VARCHAR(100), -- Tên sản phẩm
+    @CategoryName VARCHAR(50), -- Tên danh mục
+    @Price DECIMAL(10, 2), -- Giá sản phẩm
+    @Brand VARCHAR(50), -- Thương hiệu
+    @ManufacturingDate DATE, -- Ngày sản xuất
+    @ExpiryDate DATE, -- Ngày hết hạn
+    @Ingredients VARCHAR(255), -- Thành phần
+    @StockQuantity INT -- Số lượng tồn kho
 AS
 BEGIN
+    -- Cập nhật thông tin sản phẩm trong bảng Products
     UPDATE Products
     SET ProductName = @ProductName,
         CategoryName = @CategoryName,
@@ -183,124 +205,43 @@ BEGIN
 END;
 
 GO
--- Delete Product
+-- Tạo thủ tục lưu trữ để xóa sản phẩm theo ProductID
 CREATE PROCEDURE sp_DeleteProduct
-    @ProductID INT
+    @ProductID INT -- ID sản phẩm
 AS
 BEGIN
+    -- Xóa sản phẩm khỏi bảng Products theo ProductID
     DELETE FROM Products WHERE ProductID = @ProductID;
 END;
 
 GO
--- Create a Receipt
-CREATE PROCEDURE sp_CreateReceipt
-    @TotalPrice DECIMAL(15, 2),
-    @Tax DECIMAL(5, 2),
-    @PaymentMethod VARCHAR(50),
-    @TransactionDate DATE
-AS
-BEGIN
-    INSERT INTO Receipts (TotalPrice, Tax, PaymentMethod, TransactionDate, CreatedAt, UpdatedAt)
-    VALUES (@TotalPrice, @Tax, @PaymentMethod, @TransactionDate, GETDATE(), GETDATE());
-END;
 
-GO
--- Get Receipt by ID
+-- Tạo thủ tục lưu trữ để lấy thông tin biên lai theo ReceiptID
 CREATE PROCEDURE sp_GetReceiptByID
-    @ReceiptID INT
+    @ReceiptID INT -- ID biên lai
 AS
 BEGIN
+    -- Lấy thông tin biên lai từ bảng Receipts theo ReceiptID
     SELECT * FROM Receipts WHERE ReceiptID = @ReceiptID;
 END;
-
 GO
--- Update Receipt
-CREATE PROCEDURE sp_UpdateReceipt
-    @ReceiptID INT,
-    @TotalPrice DECIMAL(15, 2),
-    @Tax DECIMAL(5, 2),
-    @PaymentMethod VARCHAR(50),
-    @TransactionDate DATE
-AS
-BEGIN
-    UPDATE Receipts
-    SET TotalPrice = @TotalPrice,
-        Tax = @Tax,
-        PaymentMethod = @PaymentMethod,
-        TransactionDate = @TransactionDate,
-        UpdatedAt = GETDATE()
-    WHERE ReceiptID = @ReceiptID;
-END;
 
-GO
--- Delete Receipt
-CREATE PROCEDURE sp_DeleteReceipt
-    @ReceiptID INT
-AS
-BEGIN
-    DELETE FROM Receipts WHERE ReceiptID = @ReceiptID;
-END;
-
-GO
--- Create Sales
-CREATE PROCEDURE sp_CreateSale
-    @TotalIncome DECIMAL(15, 2)
-AS
-BEGIN
-    INSERT INTO Sales (TotalIncome, CreatedAt, UpdatedAt)
-    VALUES (@TotalIncome, GETDATE(), GETDATE());
-END;
-
-GO
--- Get Sale by ID
+-- Tạo thủ tục lưu trữ để lấy thông tin bán hàng theo SalesID
 CREATE PROCEDURE sp_GetSaleByID
-    @SalesID INT
+    @SalesID INT -- ID bán hàng
 AS
 BEGIN
+    -- Lấy thông tin bán hàng từ bảng Sales theo SalesID
     SELECT * FROM Sales WHERE SalesID = @SalesID;
 END;
 
 GO
--- Update Sale
-CREATE PROCEDURE sp_UpdateSale
-    @SalesID INT,
-    @TotalIncome DECIMAL(15, 2)
-AS
-BEGIN
-    UPDATE Sales
-    SET TotalIncome = @TotalIncome,
-        UpdatedAt = GETDATE()
-    WHERE SalesID = @SalesID;
-END;
-
-GO
--- Delete Sale
-CREATE PROCEDURE sp_DeleteSale
-    @SalesID INT
-AS
-BEGIN
-    DELETE FROM Sales WHERE SalesID = @SalesID;
-END;
-
-GO
--- Add Products to Receipt (Receipts_Products)
-CREATE PROCEDURE sp_AddProductToReceipt
-    @ReceiptID INT,
-    @ProductID INT,
-    @Price DECIMAL(10, 2),
-    @Quantity INT
-AS
-BEGIN
-    INSERT INTO Receipts_Products (ReceiptID, ProductID, Price, Quantity, CreatedAt, UpdatedAt)
-    VALUES (@ReceiptID, @ProductID, @Price, @Quantity, GETDATE(), GETDATE());
-END;
-
-GO
--- Get Products from Receipt
+-- Tạo thủ tục lưu trữ để lấy thông tin sản phẩm từ biên lai
 CREATE PROCEDURE sp_GetProductsFromReceipt
-    @ReceiptID INT
+    @ReceiptID INT -- ID biên lai
 AS
 BEGIN
+    -- Lấy thông tin sản phẩm từ bảng Receipts_Products kết hợp với bảng Products
     SELECT p.ProductID, p.ProductName, rp.Price, rp.Quantity
     FROM Receipts_Products rp
     JOIN Products p ON rp.ProductID = p.ProductID
@@ -308,25 +249,109 @@ BEGIN
 END;
 
 GO
--- Add Receipt to Sale (Sales_Receipts)
-CREATE PROCEDURE sp_AddReceiptToSale
-    @SalesID INT,
-    @ReceiptID INT,
-    @Amount DECIMAL(10, 2)
-AS
-BEGIN
-    INSERT INTO Sales_Receipts (SalesID, ReceiptID, Amount, CreatedAt, UpdatedAt)
-    VALUES (@SalesID, @ReceiptID, @Amount, GETDATE(), GETDATE());
-END;
-
-GO
--- Get Receipts from Sale
+-- Tạo thủ tục lưu trữ để lấy thông tin biên lai từ bán hàng
 CREATE PROCEDURE sp_GetReceiptsFromSale
-    @SalesID INT
+    @SalesID INT -- ID bán hàng
 AS
 BEGIN
+    -- Lấy thông tin biên lai từ bảng Sales_Receipts kết hợp với bảng Receipts
     SELECT r.ReceiptID, r.TotalPrice, sr.Amount
     FROM Sales_Receipts sr
     JOIN Receipts r ON sr.ReceiptID = r.ReceiptID
     WHERE sr.SalesID = @SalesID;
+END;
+go
+-- Tạo thủ tục lưu trữ để thay đổi vai trò người dùng
+CREATE PROCEDURE sp_ChangeUserRole
+    @EmployeeID INT, -- ID nhân viên
+    @UserRole NVARCHAR(10) -- Vai trò người dùng (Admin hoặc Employee)
+AS
+BEGIN
+    -- Kiểm tra nếu vai trò không hợp lệ
+    IF @UserRole NOT IN ('Admin', 'Employee')
+    BEGIN
+        RAISERROR ('Invalid role. Only "Admin" or "Employee" are allowed.', 16, 1);
+        RETURN;
+    END
+
+    -- Cập nhật vai trò người dùng trong bảng Employees
+    UPDATE Employees
+    SET UserRole = @UserRole
+    WHERE EmployeeID = @EmployeeID;
+
+    -- Kiểm tra nếu không tìm thấy EmployeeID
+    IF @@ROWCOUNT = 0
+    BEGIN
+        RAISERROR ('EmployeeID not found.', 16, 1);
+    END
+END;
+GO
+
+-- Tạo thủ tục lưu trữ để cập nhật thông tin nhân viên
+CREATE PROCEDURE sp_UpdateEmployee
+    @EmployeeID INT, -- ID nhân viên
+    @Username NVARCHAR(255) = NULL, -- Tên đăng nhập
+    @Password NVARCHAR(255) = NULL, -- Mật khẩu
+    @UserRole NVARCHAR(10) = NULL -- Vai trò người dùng
+AS
+BEGIN
+    -- Kiểm tra nếu vai trò không hợp lệ
+    IF @UserRole IS NOT NULL AND @UserRole NOT IN ('Admin', 'Employee')
+    BEGIN
+        RAISERROR ('Invalid role. Only "Admin" or "Employee" are allowed.', 16, 1);
+        RETURN;
+    END
+
+    -- Cập nhật thông tin nhân viên trong bảng Employees
+    UPDATE Employees
+    SET 
+        Username = ISNULL(@Username, Username),
+        Password = ISNULL(@Password, Password),
+        UserRole = ISNULL(@UserRole, UserRole)
+    WHERE EmployeeID = @EmployeeID;
+
+    -- Kiểm tra nếu không tìm thấy EmployeeID
+    IF @@ROWCOUNT = 0
+    BEGIN
+        RAISERROR ('EmployeeID not found.', 16, 1);
+    END
+END;
+GO
+
+-- Tạo thủ tục lưu trữ để xóa nhân viên
+CREATE PROCEDURE sp_DeleteEmployee
+    @EmployeeID INT -- ID nhân viên
+AS
+BEGIN
+    -- Xóa nhân viên khỏi bảng Employees theo EmployeeID
+    DELETE FROM Employees
+    WHERE EmployeeID = @EmployeeID;
+
+    -- Kiểm tra nếu không tìm thấy EmployeeID
+    IF @@ROWCOUNT = 0
+    BEGIN
+        RAISERROR ('EmployeeID not found.', 16, 1);
+    END
+END;
+GO
+--Tạo thủ tuc lưu trữ để thêm nhân viên
+CREATE PROCEDURE sp_CreateEmployeeUser
+    @UserRole NVARCHAR(20),
+    @Username NVARCHAR(255),
+    @Password NVARCHAR(255)
+AS
+BEGIN
+    -- Validate UserRole to ensure it's either 'Admin' or 'Employee'
+    IF @UserRole NOT IN ('Admin', 'Employee')
+    BEGIN
+        RAISERROR('Invalid UserRole. It must be either "Admin" or "Employee".', 16, 1);
+        RETURN;
+    END
+
+    -- Insert new user into Employees table
+    INSERT INTO Employees (UserRole, Username, Password, CreatedAt, UpdatedAt)
+    VALUES (@UserRole, @Username, @Password, GETDATE(), GETDATE());
+
+    -- Optionally, return the newly inserted EmployeeID
+    SELECT SCOPE_IDENTITY() AS NewEmployeeID;
 END;

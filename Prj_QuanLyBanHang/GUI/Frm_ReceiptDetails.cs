@@ -63,8 +63,9 @@ namespace Prj_QuanLyBanHang.GUI
 
                     DataTable tblProducts;
                     tblProducts = receipt.GetDataProductsReceipt(ReceiptId);
-                    list_products.DataSource = tblProducts;
+                    list_of_products.DataSource = tblProducts;
                     txt_numberproduct.Text = tblProducts.Rows.Count.ToString();
+                    SetStyle();
                 }
                 else
                 {
@@ -75,6 +76,23 @@ namespace Prj_QuanLyBanHang.GUI
             {
                 MessageBox.Show("Failed to connect to database", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void SetStyle()
+        {
+            list_of_products.Columns["ProductID"].HeaderText = "Mã sản phẩm";
+            list_of_products.Columns["ProductID"].Width = 80;
+
+            list_of_products.Columns["ProductName"].HeaderText = "Tên sản phẩm";
+            list_of_products.Columns["ProductName"].Width = 200;
+
+
+            list_of_products.Columns["Price"].HeaderText = "Giá";
+            list_of_products.Columns["Price"].Width = 100;
+
+
+            list_of_products.Columns["Quantity"].HeaderText = "Số lượng mua";
+            list_of_products.Columns["Quantity"].Width = 100;
+
         }
     }
 }

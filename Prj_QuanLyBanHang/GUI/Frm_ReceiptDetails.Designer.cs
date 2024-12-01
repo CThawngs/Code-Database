@@ -48,7 +48,7 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.dateTime_transaction = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
-            this.list_products = new System.Windows.Forms.DataGridView();
+            this.list_of_products = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dateTime_UpdatedAt = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
@@ -61,7 +61,7 @@
             this.panel4.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.list_products)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.list_of_products)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel8.SuspendLayout();
             this.SuspendLayout();
@@ -273,17 +273,17 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "Ngày Xuất:";
             // 
-            // list_products
+            // list_of_products
             // 
-            this.list_products.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.list_products.Location = new System.Drawing.Point(37, 316);
-            this.list_products.Name = "list_products";
-            this.list_products.ReadOnly = true;
-            this.list_products.RowHeadersWidth = 51;
-            this.list_products.RowTemplate.Height = 24;
-            this.list_products.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.list_products.Size = new System.Drawing.Size(463, 260);
-            this.list_products.TabIndex = 3;
+            this.list_of_products.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.list_of_products.Location = new System.Drawing.Point(37, 316);
+            this.list_of_products.Name = "list_of_products";
+            this.list_of_products.ReadOnly = true;
+            this.list_of_products.RowHeadersWidth = 51;
+            this.list_of_products.RowTemplate.Height = 24;
+            this.list_of_products.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.list_of_products.Size = new System.Drawing.Size(463, 260);
+            this.list_of_products.TabIndex = 3;
             // 
             // panel1
             // 
@@ -358,7 +358,7 @@
             this.ClientSize = new System.Drawing.Size(1070, 597);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.list_products);
+            this.Controls.Add(this.list_of_products);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel4);
@@ -383,7 +383,7 @@
             this.panel6.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.list_products)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.list_of_products)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel8.ResumeLayout(false);
@@ -414,7 +414,7 @@
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.DateTimePicker dateTime_transaction;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.DataGridView list_products;
+        private System.Windows.Forms.DataGridView list_of_products;
         private System.Windows.Forms.TextBox txt_tax;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DateTimePicker dateTime_UpdatedAt;

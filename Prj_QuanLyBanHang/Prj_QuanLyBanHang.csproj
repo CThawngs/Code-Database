@@ -37,6 +37,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,6 +55,7 @@
     <Compile Include="BLL\Receipts.cs" />
     <Compile Include="BLL\Sales.cs" />
     <Compile Include="BLL\SalesDetails.cs" />
+    <Compile Include="BLL\TimeFilter.cs" />
     <Compile Include="BLL\User.cs" />
     <Compile Include="BLL\Users.cs" />
     <Compile Include="Frm_Login.cs">

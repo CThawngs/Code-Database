@@ -388,6 +388,8 @@ INSERT INTO Sales (TotalIncome, UpdatedAt, CreatedAt) VALUES
 (5000.00, '2024-11-10', '2024-10-05'),
 (2000.00, '2024-11-02', '2024-09-02');
 
+select * from Sales
+
 -- Receipts_Products Table
 INSERT INTO Receipts_Products (ReceiptID, ProductID, Price, Quantity, UpdatedAt, CreatedAt) VALUES
 (1, 1, 3.79, 2, '2024-11-01', '2024-11-01'),

@@ -151,20 +151,25 @@ END;
 GO
 -- Tạo thủ tục lưu trữ để thêm sản phẩm mới vào bảng Products
 CREATE PROCEDURE sp_CreateProduct
-    @ProductName VARCHAR(100), -- Tên sản phẩm
-    @CategoryName VARCHAR(50), -- Tên danh mục
-    @Price DECIMAL(10, 2), -- Giá sản phẩm
-    @Brand VARCHAR(50), -- Thương hiệu
-    @ManufacturingDate DATE, -- Ngày sản xuất
-    @ExpiryDate DATE, -- Ngày hết hạn
-    @Ingredients VARCHAR(255), -- Thành phần
-    @StockQuantity INT -- Số lượng tồn kho
+    @ProductName VARCHAR(100), 
+    @CategoryName VARCHAR(50), 
+    @Price DECIMAL(10, 2), 
+    @Brand VARCHAR(50), 
+    @ManufacturingDate DATE, 
+    @ExpiryDate DATE, 
+    @Ingredients VARCHAR(255), 
+    @StockQuantity INT
 AS
 BEGIN
-    -- Thêm thông tin sản phẩm vào bảng Products
+    -- Explicitly convert @Price to DECIMAL(10, 2) if needed
+    DECLARE @ConvertedPrice DECIMAL(10, 2);
+    SET @ConvertedPrice = CONVERT(DECIMAL(10, 2), @Price);
+
+    -- Insert product data with the converted price
     INSERT INTO Products (ProductName, CategoryName, Price, Brand, ManufacturingDate, ExpiryDate, Ingredients, StockQuantity, CreatedAt, UpdatedAt)
-    VALUES (@ProductName, @CategoryName, @Price, @Brand, @ManufacturingDate, @ExpiryDate, @Ingredients, @StockQuantity, GETDATE(), GETDATE());
+    VALUES (@ProductName, @CategoryName, @ConvertedPrice, @Brand, @ManufacturingDate, @ExpiryDate, @Ingredients, @StockQuantity, GETDATE(), GETDATE());
 END;
+
 
 GO
 -- Tạo thủ tục lưu trữ để lấy thông tin sản phẩm theo ProductID

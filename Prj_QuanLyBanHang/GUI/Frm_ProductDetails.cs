@@ -53,7 +53,7 @@ namespace Prj_QuanLyBanHang.GUI
 
                 if (tblProduct.Rows.Count > 0)
                 {
-                    DataRow row = tblProduct.Rows[0]; // Get the first row
+                    DataRow row = tblProduct.Rows[0];  
 
                     txt_nameofproduct.Text = row["ProductName"].ToString();
                     txt_price.Text = row["Price"].ToString();
@@ -96,7 +96,7 @@ namespace Prj_QuanLyBanHang.GUI
         private void btn_save_Click(object sender, EventArgs e)
         {
             int productId, stockQuantity;
-            int price;
+            double price;
             DateTime manufacturingDate, expiryDate;
             product = new Product();
 
@@ -107,7 +107,7 @@ namespace Prj_QuanLyBanHang.GUI
             }
 
             // Validate Price
-            if (!int.TryParse(txt_price.Text, out price))
+            if (!double.TryParse(txt_price.Text, out price))
             {
                 MessageBox.Show("Invalid Price. Please enter a numeric value with decimals.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;

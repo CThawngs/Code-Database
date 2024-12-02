@@ -32,7 +32,7 @@ namespace Prj_QuanLyBanHang.GUI
                 }
 
                 this.Hide();
-                Frm_StaffDetailscs form = new Frm_StaffDetailscs(EmployeeId);
+                Frm_StaffDetailscs form = new Frm_StaffDetailscs(EmployeeId,"Admin");
 
                 form.FormClosed += (s, args) =>
                 {

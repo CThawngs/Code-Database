@@ -53,6 +53,11 @@ namespace Prj_QuanLyBanHang.BLL
             }
         }
 
+        public object SalesExecuteScalar(string query, string[] parameters, object[] values)
+        {
+            return providers.ExecuteScalar(query, parameters, values);
+        }
+
 
     }
 }

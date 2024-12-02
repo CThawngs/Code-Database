@@ -57,6 +57,7 @@ namespace PRJ_PhamThienHung.DAL
 
         public SqlCommand Command(string queryOrSpName, string[] Parameters, object[] Values, bool isStored)
         {
+
             if (string.IsNullOrEmpty(queryOrSpName))
                 throw new ArgumentException("Query or stored procedure name cannot be null or empty.");
 
@@ -76,13 +77,14 @@ namespace PRJ_PhamThienHung.DAL
                     {
                         ParameterName = Parameters[i],
                         Value = Values[i] ?? DBNull.Value,
-                        SqlDbType = DetermineSqlDbType(Values[i])  
+                        SqlDbType = DetermineSqlDbType(Values[i])
                     });
                 }
             }
 
             return cmd;
         }
+
 
         public SqlDataReader ExecuteReader(string queryOrSpName, string[] Parameters, object[] Values, bool isStored)
         {
@@ -168,15 +170,32 @@ namespace PRJ_PhamThienHung.DAL
 
         private SqlDbType DetermineSqlDbType(object value)
         {
+            if (value == null)
+                return SqlDbType.Variant;  // Or SqlDbType.NVarChar as a fallback for string data
+
+            // Check for common data types
             if (value is int)
                 return SqlDbType.Int;
+            if (value is long)
+                return SqlDbType.BigInt;
             if (value is string)
                 return SqlDbType.NVarChar;
             if (value is DateTime)
                 return SqlDbType.DateTime;
             if (value is bool)
                 return SqlDbType.Bit;
-            return SqlDbType.Variant;
+            if (value is decimal)
+                return SqlDbType.Decimal;
+            if (value is double)
+                return SqlDbType.Float;
+            if (value is Guid)
+                return SqlDbType.UniqueIdentifier;
+            if (value is byte[])
+                return SqlDbType.VarBinary;
+
+            // Add more types as needed
+            return SqlDbType.Variant;  // Default case for unsupported types
         }
+
     }
 }

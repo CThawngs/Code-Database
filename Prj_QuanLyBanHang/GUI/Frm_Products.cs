@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlTypes;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -139,36 +140,25 @@ namespace Prj_QuanLyBanHang.GUI
         private void btn_Luu_Click(object sender, EventArgs e)
         {
             Products products = new Products();
-            int price;
+            double price;
 
-            if (!int.TryParse(txt_price.Text, out price))
+            if (!double.TryParse(txt_price.Text, out price))
             {
                 MessageBox.Show("Please type in the correct price", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            decimal decimalPrice = Convert.ToDecimal(price);
 
 
             if (products.Connect())
             {
-                string[] parameters = {
-            "@ProductName", "@CategoryName", "@Price",
-            "@Brand", "@ManufacturingDate", "@ExpiryDate",
-            "@Ingredients", "@StockQuantity"
-        };
+                string[] parameters = {"@ProductName", "@CategoryName", "@Price","@Brand", "@ManufacturingDate", "@ExpiryDate","@Ingredients", "@StockQuantity"};
 
-                object[] values = {
-            txt_nameofproduct.Text,
-            cmb_filter.Text,
-            price,
-            txt_brand.Text,
-            DateTime.Now,
-            DateTime.Now.AddDays(2),
-            "",
-            0
-        };
+                object[] values = {txt_nameofproduct.Text,cmb_filter.Text, decimalPrice, txt_brand.Text,DateTime.Now,DateTime.Now.AddDays(2),"",0};
 
                 int rec = products.ProductsExecuteNonQuery("sp_CreateProduct", parameters, values, true);
 
+                products.Disconnect();
                 if (rec > 0)
                 {
                     MessageBox.Show("Success", "Notice", MessageBoxButtons.OK);
@@ -178,7 +168,7 @@ namespace Prj_QuanLyBanHang.GUI
                 }
                 else
                 {
-                    MessageBox.Show("Failed", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Failed to created ", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

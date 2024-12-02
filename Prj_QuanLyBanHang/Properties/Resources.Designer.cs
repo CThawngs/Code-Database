@@ -73,6 +73,16 @@ namespace Prj_QuanLyBanHang.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap about {
+            get {
+                object obj = ResourceManager.GetObject("about", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap application {
             get {
                 object obj = ResourceManager.GetObject("application", resourceCulture);
@@ -136,6 +146,16 @@ namespace Prj_QuanLyBanHang.Properties {
         internal static System.Drawing.Bitmap help_book {
             get {
                 object obj = ResourceManager.GetObject("help book", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap help_book_3d {
+            get {
+                object obj = ResourceManager.GetObject("help book 3d", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

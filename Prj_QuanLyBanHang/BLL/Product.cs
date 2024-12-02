@@ -44,5 +44,19 @@ namespace Prj_QuanLyBanHang.BLL
         {
             return providers.ExecuteScalar(query, parameters, values);
         }
+        public DataTable ProductExecuteReader()
+        {
+            string query = @"
+            SELECT 
+                CategoryName, 
+                (COUNT(*) * 100.0 / (SELECT COUNT(*) FROM Products)) AS Percentage
+            FROM Products
+            GROUP BY CategoryName;
+        ";
+            return providers.GetData(query, null, null, false);
+
+        }
+
+
     }
 }

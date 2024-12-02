@@ -55,6 +55,7 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.dateTime_CreatedAt = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
+            this.btn_report = new System.Windows.Forms.Button();
             this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -171,7 +172,7 @@
             // btn_exit
             // 
             this.btn_exit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_exit.Location = new System.Drawing.Point(577, 538);
+            this.btn_exit.Location = new System.Drawing.Point(748, 538);
             this.btn_exit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_exit.Name = "btn_exit";
             this.btn_exit.Size = new System.Drawing.Size(126, 38);
@@ -351,11 +352,24 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Ngày Tạo:";
             // 
+            // btn_report
+            // 
+            this.btn_report.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_report.Location = new System.Drawing.Point(577, 538);
+            this.btn_report.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_report.Name = "btn_report";
+            this.btn_report.Size = new System.Drawing.Size(165, 38);
+            this.btn_report.TabIndex = 15;
+            this.btn_report.Text = "Báo Biểu";
+            this.btn_report.UseVisualStyleBackColor = true;
+            this.btn_report.Click += new System.EventHandler(this.btn_report_Click);
+            // 
             // Frm_ReceiptDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1070, 597);
+            this.Controls.Add(this.btn_report);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.list_of_products);
@@ -422,5 +436,6 @@
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.DateTimePicker dateTime_CreatedAt;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btn_report;
     }
 }

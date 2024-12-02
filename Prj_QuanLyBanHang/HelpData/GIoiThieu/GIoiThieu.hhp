@@ -1,0 +1,18 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=GIoiThieu.chm
+Contents file=GIoiThieu.hhc
+Index file=GIoiThieu.hhk
+Binary Index=Yes
+Full-text search=Yes
+Language=0x0409
+Title=GIoiThieu
+Error log file=Errlog.txt
+Default Window=main
+
+[WINDOWS]
+main="GIoiThieu","GIoiThieu.hhc","GIoiThieu.hhk","GioiThieu.htm","",,,,,0x41520,240,0x184E,[262,184,762,584],,,,0,0,0,0
+
+[FILES]
+GioiThieu.htm
+

@@ -94,5 +94,10 @@ namespace Prj_QuanLyBanHang.GUI
             list_of_products.Columns["Quantity"].Width = 100;
 
         }
+
+        private void btn_report_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

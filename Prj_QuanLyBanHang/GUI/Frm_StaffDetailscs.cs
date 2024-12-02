@@ -14,20 +14,23 @@ namespace Prj_QuanLyBanHang.GUI
     public partial class Frm_StaffDetailscs : Form
     {
         private int employeeId;
+        private string CurrentUserRole;
         private Timer debounceTimer;
         User user;
-        public Frm_StaffDetailscs(int id)
+        public Frm_StaffDetailscs(int id , string role)
         {
             InitializeComponent();
             this.employeeId = id;
             debounceTimer = new Timer();
             debounceTimer.Interval = 300; 
             debounceTimer.Tick += DebounceTimer_Tick;
+            CurrentUserRole = role;
         }
         private void DebounceTimer_Tick(object sender, EventArgs e)
         {
             debounceTimer.Stop();
             LoadDataStaff();
+           
         }
 
         private void btn_exit_Click(object sender, EventArgs e)
@@ -43,6 +46,14 @@ namespace Prj_QuanLyBanHang.GUI
         private void Frm_StaffDetailscs_Load(object sender, EventArgs e)
         {
             LoadDataStaff();
+            if (CurrentUserRole.ToLower() == "admin")
+            {
+                cb_typestaff.Enabled = true;
+            }
+            else
+            {
+                cb_typestaff.Enabled = false;
+            }
         }
         private void LoadDataStaff()
         {

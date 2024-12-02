@@ -179,12 +179,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="Database\QuanLyBanHangData\Products.csv" />
-    <None Include="Database\QuanLyBanHangData\README.md" />
-    <None Include="Database\QuanLyBanHangData\Receipts.csv" />
-    <None Include="Database\QuanLyBanHangData\Receipts_Products.csv" />
-    <None Include="Database\QuanLyBanHangData\Sales.csv" />
-    <None Include="Database\QuanLyBanHangData\Sales_Receipts.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

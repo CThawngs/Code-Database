@@ -209,6 +209,7 @@
             // 
             // cb_typestaff
             // 
+            this.cb_typestaff.Enabled = false;
             this.cb_typestaff.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_typestaff.FormattingEnabled = true;
             this.cb_typestaff.Items.AddRange(new object[] {

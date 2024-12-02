@@ -1,0 +1,14 @@
+Microsoft HTML Help Compiler 4.74.8702
+
+Compiling c:\Users\BaseLess\OneDrive\Máy tính\CSDL\Project\Prj_QuanLyBanHang\HelpData\GIoiThieu\GIoiThieu.chm
+
+
+Compile time: 0 minutes, 0 seconds
+3	Topics
+4	Local links
+0	Internet links
+0	Graphics
+
+
+Created c:\Users\BaseLess\OneDrive\Máy tính\CSDL\Project\Prj_QuanLyBanHang\HelpData\GIoiThieu\GIoiThieu.chm, 25,183 bytes
+Compression decreased file by 77,052 bytes.
